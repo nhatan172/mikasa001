@@ -10,3 +10,14 @@ vn:
       introduce: "Giới thiệu"
       center_law: "Văn bản pháp luật trung ương"
       news_law: "Tin tức pháp luật"
+    search_box:
+      title: "Tìm kiếm"
+      search_in: "Tìm trong"
+      key_search: "Từ khóa tìm kiếm"
+      search: "Tìm kiếm"
+      filter:
+        filter_1: "Chính xác cụm từ trên"
+        filter_2: "Có tất cả từ trên"
+        filter_3: "Tất cả"
+        filter_4: "Tiêu đề"
+        filter_5: "Trích yếu"

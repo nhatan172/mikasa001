@@ -10,3 +10,14 @@ en:
       introduce: "Introduce"
       center_law: "Center laws"
       news_law: "Law news"
+    search_box:
+      title: "Search"
+      search_in: "Search in"
+      key_search: "Key search"
+      search: "Search"
+      filter:
+        filter_1: "Exact phrase above"
+        filter_2: "There are all above"
+        filter_3: "All"
+        filter_4: "Title"
+        filter_5: " Abridgment"

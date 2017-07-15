@@ -22,114 +22,117 @@ $yellow-lighter: #fffb00;
 $white: #fff;
 $gray-lighter: #c1c1c1;
 
-@mixin style_link_navbar{
+@mixin style_link_navbar {
   background-color: $white;
   color: $blue-lighter;
 }
 
-body{
+body {
   font-family: 'Roboto Slab', serif;
 }
 
-.navbar-default{
+.navbar-default {
   background-color: $blue-lighter;
   border-color: $blue-lighter;
   border-radius: 0;
   margin-bottom: 35px;
+  box-shadow: 1px 2px 2px 1px $gray-lighter;
   
-  .navbar-toggle{
+  .navbar-toggle {
     border-color: $white;
     
-    &:hover{
+    &:hover {
       background-color: $white;
       transition: .4s all ease;
 
-      .icon-bar{
+      .icon-bar {
         background-color: $blue-lighter;
         transition: .4s all ease;
       }
     }
 
-    &:focus{
+    &:focus {
       background-color: $white;
       
-      .icon-bar{
+      .icon-bar {
         background-color: $blue-lighter;
       }
     }
     
-    .icon-bar{
+    .icon-bar {
       background-color: $white;
     }
   }
 
-  .navbar-brand{
+  .navbar-brand {
     color: $white;
-    &:hover{
+    &:hover {
       color: $yellow-lighter;
       transition: .5s all ease;
     }
   }
 
-  .navbar-nav > .open > a{
+  .navbar-nav > .open > a {
     @include style_link_navbar; 
   }
 
-  .navbar-nav > .open > a:focus{
+  .navbar-nav > .open > a:focus {
     @include style_link_navbar; 
   }
 
-  .navbar-nav > li > a{
+  .navbar-nav > li > a {
     color: $white;
     
-    &:hover{
+    &:hover {
       color: $yellow-lighter;
       transition: 0.5s all ease;
     }
   }
 
-  .navbar-nav > .active > a{
+  .navbar-nav > .active > a {
     @include style_link_navbar; 
     
-    &:hover{
+    &:hover {
       background-color: $white;
       color: $blue-lighter;
     }
   }
 }
 
-.btn-primary{ 
-  background-color: $blue-lighter;
-  border-color: $blue-lighter;
-}
-
-.container{
-  .jumbotron{
+.container {
+  .jumbotron {
     display: inline-block;
     padding: 0 15px;
     background-color: transparent;
+    float: left;
 
-    .btn{
+    .btn {
       margin-top: 6px;
-      font-size: 1.2em;
+      font-size: 1.1em;
       margin-right: 5px;
       box-shadow: 1px 0 2px 1px $gray-lighter;
     }
     
-    img{
+    img {
       width: 100%;
       display: inline-block;
+      box-shadow: 1px 0 2px 1px $gray-lighter;
     }
   }
 }
 
-@media (min-width: 992px){
+.btn-primary { 
+  background-color: $blue-lighter;
+  border-color: $blue-lighter;
+}
+
+@media (min-width: 992px) {
   .container {
     width: 900px;
   }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   .container {
     width: 1200px;
     padding: 0;
