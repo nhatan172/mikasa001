@@ -1,0 +1,12 @@
+vn:
+  app:
+    navbar:
+      app_name: "Luật VN"
+      home: "Trang chủ"
+      about: "Thông tin"
+      settings: "Thiết lập"
+      sign_out: "Đăng xuất"
+    jumbotron:
+      introduce: "Giới thiệu"
+      center_law: "Văn bản pháp luật trung ương"
+      news_law: "Tin tức pháp luật"
