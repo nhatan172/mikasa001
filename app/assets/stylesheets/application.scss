@@ -16,6 +16,7 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import "font-awesome";
 
 $blue-lighter: #318db7;
 $yellow-lighter: #fffb00;
@@ -116,7 +117,7 @@ body {
     img {
       width: 100%;
       display: inline-block;
-      box-shadow: 1px 0 2px 1px $gray-lighter;
+      box-shadow: 1px 2px 2px 1px $gray-lighter;
     }
   }
 }

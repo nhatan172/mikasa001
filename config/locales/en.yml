@@ -1,5 +1,6 @@
 en:
   app:
+    chat_face: "Chat with us"
     navbar:
       app_name: "VNLaw"
       home: "Home"

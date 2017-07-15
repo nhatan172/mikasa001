@@ -1,5 +1,6 @@
 vn:
   app:
+    chat_face: "Chat với chúng tôi"
     navbar:
       app_name: "Luật VN"
       home: "Trang chủ"
