@@ -22,3 +22,6 @@ vn:
         filter_3: "Tất cả"
         filter_4: "Tiêu đề"
         filter_5: "Trích yếu"
+    box_text:
+      new_law: "Văn bản mới"
+      leg_sit: "Tình huống pháp luật"

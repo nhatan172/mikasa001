@@ -22,3 +22,6 @@ en:
         filter_3: "All"
         filter_4: "Title"
         filter_5: " Abridgment"
+    box_text:
+      new_law: "New laws"
+      leg_sit: "Legal situation"
