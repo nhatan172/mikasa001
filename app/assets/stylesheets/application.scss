@@ -1,0 +1,153 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import "font-awesome";
+
+$blue-lighter: #318db7;
+$yellow-lighter: #fffb00;
+$white: #fff;
+$gray-lighter: #c1c1c1;
+
+@mixin style_link_navbar {
+  background-color: $white;
+  color: $blue-lighter;
+}
+
+@font-face{
+  font-family: 'Roboto Slab';
+  src: font-url('RobotoSlab-Regular.ttf'); 
+}
+
+body {
+  font-family: 'Roboto Slab';
+}
+
+.navbar-default {
+  background-color: $blue-lighter;
+  border-color: $blue-lighter;
+  border-radius: 0;
+  margin-bottom: 35px;
+  box-shadow: 1px 2px 2px 1px $gray-lighter;
+  
+  .navbar-toggle {
+    border-color: $white;
+    
+    &:hover {
+      background-color: $white;
+      transition: .4s all ease;
+
+      .icon-bar {
+        background-color: $blue-lighter;
+        transition: .4s all ease;
+      }
+    }
+
+    &:focus {
+      background-color: $white;
+      
+      .icon-bar {
+        background-color: $blue-lighter;
+      }
+    }
+    
+    .icon-bar {
+      background-color: $white;
+    }
+  }
+
+  .navbar-brand {
+    color: $white;
+    &:hover {
+      color: $yellow-lighter;
+      transition: .5s all ease;
+    }
+
+    &:focus{
+      color: $yellow-lighter;
+      transition: .5s all ease;
+    }
+  }
+
+  .navbar-nav > .open > a {
+    @include style_link_navbar; 
+  }
+
+  .navbar-nav > .open > a:focus {
+    @include style_link_navbar; 
+  }
+
+  .navbar-nav > li > a {
+    color: $white;
+    
+    &:hover {
+      color: $yellow-lighter;
+      transition: 0.5s all ease;
+    }
+  }
+
+  .navbar-nav > .active > a {
+    @include style_link_navbar; 
+    
+    &:hover {
+      background-color: $white;
+      color: $blue-lighter;
+    }
+  }
+}
+
+.container {
+  .jumbotron {
+    display: inline-block;
+    padding: 0 15px;
+    background-color: transparent;
+    float: left;
+
+    .btn {
+      margin-top: 6px;
+      font-size: 1.1em;
+      margin-right: 5px;
+      box-shadow: 1px 0 2px 1px $gray-lighter;
+    }
+    
+    img {
+      width: 100%;
+      display: inline-block;
+      box-shadow: 1px 2px 2px 1px $gray-lighter;
+    }
+
+    a{
+      color: $white;
+
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.btn-primary { 
+  background-color: $blue-lighter;
+  border-color: $blue-lighter;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1280px;
+    padding: 0;
+  }
+}

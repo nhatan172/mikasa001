@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <div class="row">
+    <%= image_tag "banner.png" %>
+  </div>
+  <div class="row">
+    <div class="btn btn-primary"><%= t "app.jumbotron.introduce" %></div>
+    <div class="btn btn-primary">
+      <%= link_to "/search" do %>
+        <%= t "app.jumbotron.center_law" %>
+      <% end %>
+    </div>
+    <div class="btn btn-primary"><%= t "app.jumbotron.news_law" %></div>
+  </div>
+</div>

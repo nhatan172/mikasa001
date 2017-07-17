@@ -1,23 +1,71 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  app:
+    chat_face: "Chat with us"
+    navbar:
+      app_name: "VNLaw"
+      home: "Home"
+      about: "About"
+      settings: "Settings"
+      sign_out: "Sing Out"
+    jumbotron:
+      introduce: "Introduce"
+      center_law: "Center laws"
+      news_law: "Law news"
+    search_box:
+      title: "Search"
+      search_in: "Search in"
+      key_search: "Key search"
+      search: "Search"
+      filter:
+        filter_1: "Exact phrase above"
+        filter_2: "There are all above"
+        filter_3: "All"
+        filter_4: "Title"
+        filter_5: " Abridgment"
+    text_much_view: "Text much view"
+    pdf_ver: "PDF version"
+    link_text: "Link Text"
+    attribute: "Attributes"
+    chart: "Chart"
+    download: "Download"
+    public: "Public"
+    effect: "Effect"
+    status:
+      title: "Status"
+      status_1: "Ended in full force"
+      status_2: "Expired partially"
+    box_text:
+      new_law: "New laws"
+      leg_sit: "Legal situation"
+    category_box:
+      category_organ:
+        title: "Category Organization"
+        organ_1: "Congress"
+        organ_2: "National Assembly Standing Committee"
+        organ_3: "Goverment"
+        organ_4: "Prime Minister"
+        organ_5: "Ministries and ministerial-level agencies"
+        organ_6: "Other agencies"
+      category_type:
+        title: "Category Type"
+        type_1: "Constitution"
+        type_2: "Laws"
+        type_3: "Law"
+        type_4: "Order"
+        type_5: "Command"
+        type_6: "Resolution"
+        type_7: "Joint Resolution"
+        type_8: "Decree"
+        type_9: "Decided"
+        type_10: "Circulars"
+        type_11: "Joint Circular"
+      category_year:
+        title: "Category Year"
+        year_1: "1945 to 1950"
+        year_2: "1951 to 1960"
+        year_3: "1961 to 1970"
+        year_4: "1971 to 1980"
+        year_5: "1981 to 1990"
+        year_6: "1991 to 2000"
+        year_7: "2001 to 2010"
+        year_8: "2011 to 2020"

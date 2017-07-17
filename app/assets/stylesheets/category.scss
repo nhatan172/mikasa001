@@ -1,0 +1,31 @@
+$gray-lighter: #c1c1c1;
+$blue-lighter: #318db7;
+$white: #fff;
+$black: #000;
+
+.category{
+  box-shadow: 1px 1px 2px 1px $gray-lighter;
+
+  .title{
+    background-color: $blue-lighter;
+    padding: 8px 8px;
+    color: $white;
+    font-weight: bold;
+  }
+
+  .content{
+    .item{
+      padding: 8px;
+      border-bottom: 1px solid $gray-lighter;
+
+      a{
+        color: $black;
+
+        &:hover{
+          text-decoration: none;
+          color: $blue-lighter;
+        }
+      }
+    }
+  }
+}
