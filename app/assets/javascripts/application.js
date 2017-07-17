@@ -18,9 +18,9 @@
 
 window.fbAsyncInit = function() {
   FB.init({
-    appId: "760099080830192",
+    appId: '760099080830192',
     xfbml: true,
-    version: "v2.6"
+    version: 'v2.6'
   });
 };
 
@@ -36,7 +36,25 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 $(function(){
-  $(".chat_fb").click(function() {
+  $('.chat_fb').click(function() {
     $('.fchat').toggle('slow');
   });
+});
+
+var amountScrolled = 30;
+
+$(window).scroll(function() {
+  if ( $(window).scrollTop() > amountScrolled ) {
+    $('back-to-top').find('a').fadeIn('slow');
+  } 
+  else {
+    $('back-to-top').find('a').fadeOut('slow');
+  }
+});
+
+$('back_to_top').find('a').click(function() {
+  $('html, body').animate({
+    scrollTop: 0
+  }, 800);
+  return false;
 });

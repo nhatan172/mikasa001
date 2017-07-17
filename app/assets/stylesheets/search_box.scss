@@ -4,84 +4,61 @@ $white: #fff;
 
 .search-box {
   display: inline-block;
-  float: right;
   box-shadow: 1px 1px 2px 1px $gray-lighter;
 
-  .container {
-    margin: 0;
+  .title {
     display: inline-block;
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    font-weight: bold;
+    background-color: $yellow-lighter;
+  }
 
-    .title {
-      display: inline-block;
-      width: 100%;
-      font-size: 1.2em;
-      padding: 10px 15px;
-      font-weight: bold;
-      background-color: $yellow-lighter;
+  .body {
+    display: inline-block;
+    padding: 10px;
+    width: 100%;
+
+    .text-search-box {
+      padding-bottom: 10px;
     }
 
-    .body {
-      display: inline-block;
-      padding: 15px;
-      width: 100%;
-
-      .text-search-box {
-        padding-bottom: 10px;
+    .filter-list {
+      label {
+        font-weight: normal;
       }
 
-      .filter-list {
-        label {
-          font-weight: normal;
-        }
-
-        .search-term {
-          #filter2 {
-            margin-left: 20px;
-          }
-        }
-
-        .search-in {
-          margin-top: 5px;
-
-          .sub-title {
-            padding-left: 10px;
-            border-left: 3px solid $yellow-lighter;
-            display: inline-block;
-          }
-
-          input{
-            margin-left: 10px;
-          }
-
-          #group2 {
-            display: inline-block;
-          }
+      .search-term {
+        #filter2 {
+          margin-left: 20px;
         }
       }
 
-      button{
-        width: 280px;
-        margin-left: calc((100% - 280px) / 2);
+      .search-in {
         margin-top: 5px;
-        text-align: center;
+
+        .sub-title {
+          padding-left: 10px;
+          border-left: 3px solid $yellow-lighter;
+          display: inline-block;
+        }
+
+        input{
+          margin-left: 10px;
+        }
+
+        #group2 {
+          display: inline-block;
+        }
       }
     }
-  }
-}
 
-@media (min-width: 480px){
-  .search-box {
-    float: left;
-    margin-left: 0;
-    .container {
-      width: 360px;
-      padding: 0;
+    button{
+      width: 280px;
+      margin-left: calc((100% - 280px) / 2);
+      margin-top: 5px;
+      text-align: center;
     }
-  }
-}
-
-@media (min-width: 1200px) {
-  .search-box {
-    margin-left: 35px;
   }
 }

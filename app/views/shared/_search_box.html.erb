@@ -1,40 +1,38 @@
 <div class="search-box">
-  <div class="container">
-    <div class="title"><%= t "app.search_box.title" %></div>
-    <div class="body">
-      <div class="text-search-box">
-        <input class="form-control" type="text" 
-          placeholder="<%= t 'app.search_box.key_search' %>" />
-      </div>
-      <div class="filter-list">
-        <div class="search-term">
-          <div id="group1">
-            <input id="filter1" type="radio" name="group1"
-              value="<%= t 'app.search_box.filter.filter_1' %>">
-            <label for="filter1"><%= t "app.search_box.filter.filter_1" %></label>
-            <input id="filter2" type="radio" name="group1"
-              value="<%= t 'app.search_box.filter.filter_2' %>">
-            <label id="label-fil2" for="filter2">
-              <%= t "app.search_box.filter.filter_2" %>
-            </label>
-          </div>
-        </div>
-        <div class="search-in">
-          <div class="sub-title"><%= t "app.search_box.search_in" %></div>
-          <div id="group2">
-            <input id="filter3" type="radio" name="group2"
-              value="<%= t 'app.search_box.filter.filter_3' %>">
-            <label for="filter3"><%= t "app.search_box.filter.filter_3" %></label>
-            <input id="filter4" type="radio" name="group2"
-              value="<%= t 'app.search_box.filter.filter_4' %>">
-            <label for="filter4"><%= t "app.search_box.filter.filter_4" %></label>
-            <input id="filter5" type="radio" name="group2"
-              value="<%= t 'app.search_box.filter.filter_5' %>">
-            <label for="filter5"><%= t "app.search_box.filter.filter_5" %></label>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary"><%= t "app.search_box.search" %></button>
+  <div class="title"><%= t "app.search_box.title" %></div>
+  <div class="body">
+    <div class="text-search-box">
+      <input class="form-control" type="text" 
+        placeholder="<%= t 'app.search_box.key_search' %>" />
     </div>
+    <div class="filter-list">
+      <div class="search-term">
+        <div id="group1">
+          <input id="filter1" type="radio" name="group1"
+            value="<%= t 'app.search_box.filter.filter_1' %>">
+          <label for="filter1"><%= t "app.search_box.filter.filter_1" %></label>
+          <input id="filter2" type="radio" name="group1"
+            value="<%= t 'app.search_box.filter.filter_2' %>">
+          <label id="label-fil2" for="filter2">
+            <%= t "app.search_box.filter.filter_2" %>
+          </label>
+        </div>
+      </div>
+      <div class="search-in">
+        <div class="sub-title"><%= t "app.search_box.search_in" %></div>
+        <div id="group2">
+          <input id="filter3" type="radio" name="group2"
+            value="<%= t 'app.search_box.filter.filter_3' %>">
+          <label for="filter3"><%= t "app.search_box.filter.filter_3" %></label>
+          <input id="filter4" type="radio" name="group2"
+            value="<%= t 'app.search_box.filter.filter_4' %>">
+          <label for="filter4"><%= t "app.search_box.filter.filter_4" %></label>
+          <input id="filter5" type="radio" name="group2"
+            value="<%= t 'app.search_box.filter.filter_5' %>">
+          <label for="filter5"><%= t "app.search_box.filter.filter_5" %></label>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary"><%= t "app.search_box.search" %></button>
   </div>
 </div>

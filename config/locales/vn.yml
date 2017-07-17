@@ -22,6 +22,18 @@ vn:
         filter_3: "Tất cả"
         filter_4: "Tiêu đề"
         filter_5: "Trích yếu"
+    text_much_view: "Văn bản được xem nhiều"
+    pdf_ver: "Bản PDF"
+    link_text: "Văn bản liên quan"
+    attribute: "Thuộc tính"
+    chart: "Biểu đồ"
+    download: "Tải về"
+    public: "Ban hành"
+    effect: "Hiệu lực"
+    status:
+      title: "Trạng thái"
+      status_1: "Hết hiệu lực toàn bộ"
+      status_2: "Hết hiệu lực một phần"
     box_text:
       new_law: "Văn bản mới"
       leg_sit: "Tình huống pháp luật"

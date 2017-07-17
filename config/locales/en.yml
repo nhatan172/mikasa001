@@ -22,6 +22,18 @@ en:
         filter_3: "All"
         filter_4: "Title"
         filter_5: " Abridgment"
+    text_much_view: "Text much view"
+    pdf_ver: "PDF version"
+    link_text: "Link Text"
+    attribute: "Attributes"
+    chart: "Chart"
+    download: "Download"
+    public: "Public"
+    effect: "Effect"
+    status:
+      title: "Status"
+      status_1: "Ended in full force"
+      status_2: "Expired partially"
     box_text:
       new_law: "New laws"
       leg_sit: "Legal situation"
