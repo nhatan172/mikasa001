@@ -22,6 +22,10 @@ en:
         filter_3: "All"
         filter_4: "Title"
         filter_5: " Abridgment"
+    result_box:
+      new_text: "New Law"
+      text_effect_in_month: "Text effective in the month"
+      text_expires_in_month: "Text expires in the month"
     text_much_view: "Text much view"
     pdf_ver: "PDF version"
     link_text: "Link Text"
