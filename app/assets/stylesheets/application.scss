@@ -20,6 +20,7 @@
 
 $blue-lighter: #318db7;
 $yellow-lighter: #fffb00;
+$gray-lighter-more: #eeeeee;
 $white: #fff;
 $gray-lighter: #c1c1c1;
 
@@ -35,6 +36,25 @@ $gray-lighter: #c1c1c1;
 
 body {
   font-family: 'Roboto Slab';
+}
+
+.nav-pills > li > a {
+  border: 1px solid $gray-lighter-more;
+  border-radius: 0;
+}
+
+.nav-pills > li.active > a {
+  background-color: $blue-lighter;
+  border-radius: 0;
+  border: 1px solid $gray-lighter;
+    
+  &:hover {
+    background-color: $blue-lighter;
+  }
+
+  &:focus {
+    background-color: $blue-lighter;
+  }
 }
 
 .navbar-default {

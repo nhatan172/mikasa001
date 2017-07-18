@@ -1,8 +1,11 @@
 <div class="result">
   <ul class="nav nav-pills">
-    <li class="active"><a href="#">123123231</a></li>
+    <li class="active"><%= link_to t("app.result_box.new_text"), "#result1" %></li>
+    <li><%= link_to t("app.result_box.text_effect_in_month"), "#result2" %></li>
+    <li><%= link_to t("app.result_box.text_expires_in_month"), "#result3" %></li>
+
     <div class="tab-content">
-      <div class="tab-pane active">
+      <div class="tab-pane active" id="result1">
         <div class="item">
           <div class="title">
             Hiến pháp Không số

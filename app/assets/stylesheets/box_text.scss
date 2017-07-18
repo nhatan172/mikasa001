@@ -5,25 +5,6 @@ $blue-lighter: #318db7;
 .box-text {
   margin-bottom: 45px;
 
-  .nav-pills > li > a {
-    border: 1px solid $gray-lighter-more;
-    border-radius: 0;
-  }
-
-  .nav-pills > li.active > a {
-    background-color: $blue-lighter;
-    border-radius: 0;
-    border: 1px solid $gray-lighter;
-    
-    &:hover {
-      background-color: $blue-lighter;
-    }
-
-    &:focus {
-      background-color: $blue-lighter;
-    }
-  }
-
   .box-content {
     margin-top: 5px;
     box-shadow: 1px 1px 1px 1px $gray-lighter;
