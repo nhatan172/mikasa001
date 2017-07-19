@@ -1,8 +1,11 @@
 input_file = File.new("db/laws.tsv", "r")
 
 while line = input_file.gets
-  doc_id = line.split("\t")[0]
-  content = line.split("\t")[1]
+  content_split = line.split("\t")
+  doc_id = content_split[0]
+  content = content_split[1]
+  html_content = content_split[2]
   Article.create! doc_id: doc_id,
-    content: content
+    content: content,
+    html_content: html_content
 end
