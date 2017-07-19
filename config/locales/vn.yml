@@ -41,6 +41,7 @@ vn:
     box_text:
       new_law: "Văn bản mới"
       leg_sit: "Tình huống pháp luật"
+    index: "Mục lục"
     category_box:
       category_organ:
         title: "Cơ quan ban hành"

@@ -1,0 +1,31 @@
+$gray-lighter: #c1c1c1;
+$white: #fff;
+$blue-lighter: #318db7;
+$yellow-lighter: #eab05e;
+
+.index {
+  box-shadow: 1px 1px 2px 2px $gray-lighter;
+  
+  .title{
+    padding: 10px;
+    background-color: $blue-lighter;
+    color: $white;
+    font-weight: bold;
+  }
+
+  .content{
+    .chap{
+
+      .title{
+        background-color: $yellow-lighter;
+      }
+      .content{
+
+        .thing{
+          border-bottom: 1px solid $gray-lighter;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
