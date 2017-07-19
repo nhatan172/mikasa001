@@ -22,3 +22,4 @@ config/secrets.yml
 app/assets/fonts/
 
 db/*.tsv
+db/.~lock.laws.tsv#
