@@ -1,0 +1,9 @@
+<% @news.each do |each_new| %>
+	<%= link_to "/news/#{each_new.doc_id}" do %>
+		<%= each_new.doc_title %>
+	<% end %>
+	<%= each_new.doc_date %>
+	</br>
+	<%= each_new.doc_description %>
+	</br>
+<% end %>

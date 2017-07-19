@@ -9,6 +9,10 @@
         <%= t "app.jumbotron.center_law" %>
       <% end %>
     </div>
-    <div class="btn btn-primary"><%= t "app.jumbotron.news_law" %></div>
+    <div class="btn btn-primary">
+      <%= link_to "/news" do %>
+        <%= t "app.jumbotron.news_law" %>
+      <% end %>  
+    </div>
   </div>
 </div>
