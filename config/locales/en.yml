@@ -41,6 +41,7 @@ en:
     box_text:
       new_law: "New laws"
       leg_sit: "Legal situation"
+    index: "Index"
     category_box:
       category_organ:
         title: "Category Organization"

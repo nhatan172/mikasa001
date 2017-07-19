@@ -5,11 +5,14 @@ $white: #fff;
 .search-box {
   display: inline-block;
   box-shadow: 1px 1px 2px 1px $gray-lighter;
+  width: 100%;
+  margin-bottom: 30px;
 
   .title {
     display: inline-block;
     width: 100%;
     font-size: 1.2em;
+    color: $white;
     padding: 10px;
     font-weight: bold;
     background-color: $yellow-lighter;
@@ -30,12 +33,15 @@ $white: #fff;
       }
 
       .search-term {
+        display: inline-block;
+        margin-right: 20px;
         #filter2 {
           margin-left: 20px;
         }
       }
 
       .search-in {
+        display: inline-block;
         margin-top: 5px;
 
         .sub-title {
