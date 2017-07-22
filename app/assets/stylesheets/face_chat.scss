@@ -2,7 +2,7 @@ $gray-lighter: #c1c1c1;
 $white: #fff;
 $blue-lighter: #318db7;
 
-#cfacebook{
+#cfacebook {
   position: fixed;
   bottom: 0;
   right: 40px;
@@ -16,11 +16,15 @@ $blue-lighter: #318db7;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   
-  a{
+  a {
     color: $white;
     font-size: 1.2em;
 
-    .fa{
+    &:hover {
+      text-decoration: none;
+    }
+
+    .fa {
       margin-right: 10px;
     }
   }

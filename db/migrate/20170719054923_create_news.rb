@@ -8,7 +8,7 @@ class CreateNews < ActiveRecord::Migration[5.0]
     	t.text :doc_content
     	t.text :doc_date
 
-      	t.timestamps
+      t.timestamps
     end
   end
 end

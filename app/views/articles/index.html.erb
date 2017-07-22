@@ -4,7 +4,8 @@
       <%= render "shared/category_box" %>
     </div>
     <div class="col-md-6">
-      <%= render "shared/result_box" %>
+      <%= render "shared/result_box", articles: @articles %>
+      <%= will_paginate @articles %>
     </div>
     <div class="col-md-4">
       <%= render "shared/search_box" %>

@@ -20,8 +20,8 @@ en:
         filter_1: "Exact phrase above"
         filter_2: "There are all above"
         filter_3: "All"
-        filter_4: "Title"
-        filter_5: " Abridgment"
+        filter_4: "Content"
+        filter_5: "Title"
     result_box:
       new_text: "New Law"
       text_effect_in_month: "Text effective in the month"
@@ -36,8 +36,6 @@ en:
     effect: "Effect"
     status:
       title: "Status"
-      status_1: "Ended in full force"
-      status_2: "Expired partially"
     box_text:
       new_law: "New laws"
       leg_sit: "Legal situation"
