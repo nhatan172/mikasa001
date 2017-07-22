@@ -17,10 +17,19 @@ ActiveRecord::Schema.define(version: 20170719054923) do
 
   create_table "articles", force: :cascade do |t|
     t.integer  "doc_id"
+    t.text     "title"
     t.text     "content"
     t.text     "html_content"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.text     "symbol_number"
+    t.datetime "public_day"
+    t.datetime "day_report"
+    t.text     "article_type"
+    t.text     "source"
+    t.text     "scope"
+    t.datetime "effect_day"
+    t.text     "effect_status"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "news", force: :cascade do |t|

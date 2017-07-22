@@ -5,18 +5,18 @@ $gray-lighter: #c1c1c1;
 .text-much-view {
   box-shadow: 1px 1px 1px 1px $gray-lighter;
 
-  .title{
+  .title {
     background-color: $blue-lighter;
     color: $white;
     padding: 10px;
   }
 
-  .item{
+  .item {
     padding: 10px;
     border-bottom: 1px solid $gray-lighter;
 
-    a{
-      &:hover{
+    a {
+      &:hover {
         text-decoration: none;
       }
     }

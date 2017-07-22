@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "static_pages#home"
-  get "/search", to: "static_pages#search"
-  get "/about", to: "static_pages#about"
-  resources :news,params: :doc_id, only: [:index, :show]
+  get "/searches", to: "searches#index"
+
+  resources :articles, param: :doc_id, only: [:show, :index]
+  resources :news, param: :doc_id, only: [:show, :index]
 end

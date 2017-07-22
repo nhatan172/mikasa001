@@ -20,8 +20,8 @@ vn:
         filter_1: "Chính xác cụm từ trên"
         filter_2: "Có tất cả từ trên"
         filter_3: "Tất cả"
-        filter_4: "Tiêu đề"
-        filter_5: "Trích yếu"
+        filter_4: "Nội dung"
+        filter_5: "Tiêu đề"
     result_box:
       new_text: "Văn bản mới"
       text_effect_in_month: "Văn bản có hiệu lực trong tháng"
@@ -36,8 +36,6 @@ vn:
     effect: "Hiệu lực"
     status:
       title: "Trạng thái"
-      status_1: "Hết hiệu lực toàn bộ"
-      status_2: "Hết hiệu lực một phần"
     box_text:
       new_law: "Văn bản mới"
       leg_sit: "Tình huống pháp luật"

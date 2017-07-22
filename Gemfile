@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 5.0.4"
-# gem "mysql2", ">= 0.3.18", "< 0.5"
 gem "puma", "~> 3.0"
 gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
@@ -12,6 +11,10 @@ gem "jbuilder", "~> 2.5"
 gem "font-awesome-rails"
 gem "bootstrap-sass", "3.3.7"
 gem "pg"
+gem "will_paginate", "3.1.5"
+gem "bootstrap-will_paginate", "1.0.0"
+gem "i18n-js"
+gem "searchkick"
 
 group :development, :test do
   gem "byebug", platform: :mri

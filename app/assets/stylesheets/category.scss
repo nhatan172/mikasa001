@@ -3,25 +3,25 @@ $blue-lighter: #318db7;
 $white: #fff;
 $black: #000;
 
-.category{
+.category {
   box-shadow: 1px 1px 2px 1px $gray-lighter;
 
-  .title{
+  .title {
     background-color: $blue-lighter;
     padding: 8px 8px;
     color: $white;
     font-weight: bold;
   }
 
-  .content{
-    .item{
+  .content {
+    .item {
       padding: 8px;
       border-bottom: 1px solid $gray-lighter;
 
-      a{
+      a {
         color: $black;
 
-        &:hover{
+        &:hover {
           text-decoration: none;
           color: $blue-lighter;
         }

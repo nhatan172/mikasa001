@@ -1,0 +1,63 @@
+<div class="item">
+  <div class="title">
+    <%= link_to "/articles/#{article.doc_id}" do %>
+      <%= article.title %>
+    <% end %>
+  </div>
+  <div class="content">
+    <div class="main-content">
+      <div class="link">
+        <ul>
+          <li class="source">
+            <%= fa_icon "file-pdf-o" %>
+            <%= t "app.pdf_ver" %>
+          </li>
+          <li class="ref">
+            <%= fa_icon "file-text-o" %>
+            <%= t "app.link_text" %>
+          </li>
+          <li class="attribute">
+            <%= fa_icon "sitemap" %>
+            <%= t "app.attribute" %>
+          </li>
+        </ul>
+        <ul>
+          <li class="map">
+            <%= fa_icon "bar-chart" %>
+            <%= t "app.chart" %>
+          </li>
+          <li class="download">
+            <%= fa_icon "download" %>
+            <%= t "app.download" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="status">
+      <div class="public-day status-item">
+        <div class="sub-title">
+          <%= t "app.public" %>:
+        </div>
+        <div class="value">
+          <%= article.public_day.strftime "%d/%m/%Y" %>
+        </div>
+      </div>
+      <div class="effect-day status-item">
+        <div class="sub-title">
+          <%= t "app.effect" %>:
+        </div>
+        <div class="value">
+          <%= article.effect_day.strftime "%d/%m/%Y" %>
+        </div>
+      </div>
+      <div class="effect-status status-item">
+        <div class="sub-title">
+          <%= t "app.status.title" %>:
+        </div>
+        <div class="value">
+          <%= article.effect_status %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

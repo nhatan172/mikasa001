@@ -29,13 +29,17 @@ $gray-lighter: #c1c1c1;
   color: $blue-lighter;
 }
 
-@font-face{
+@font-face {
   font-family: 'Roboto Slab';
   src: font-url('RobotoSlab-Regular.ttf'); 
 }
 
 body {
   font-family: 'Roboto Slab';
+}
+
+.pagination {
+  margin-top: 0;
 }
 
 .nav-pills > li > a {
@@ -97,7 +101,7 @@ body {
       transition: .5s all ease;
     }
 
-    &:focus{
+    &:focus {
       color: $yellow-lighter;
       transition: .5s all ease;
     }
@@ -150,10 +154,10 @@ body {
       box-shadow: 1px 2px 2px 1px $gray-lighter;
     }
 
-    a{
+    a {
       color: $white;
 
-      &:hover{
+      &:hover {
         text-decoration: none;
       }
     }
