@@ -1,5 +1,10 @@
-<%= @new.doc_title %>
-<%= @new.doc_date %>
-</br>
-</br>
-<%= (@new.doc_content).html_safe %>
+<div class="container">
+  <div class="col-md-3">
+    <%= render "shared/text_much_view" %>
+    <%= render "shared/new_laws" %>
+  </div>
+  <div class="col-md-9">
+    <%= render "news" %>
+  </div>
+  <%= render "shared/face_chat" %>
+</div>

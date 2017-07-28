@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 20170719054923) do
   end
 
   create_table "news", force: :cascade do |t|
-    t.text     "doc_title"
-    t.text     "doc_url"
     t.text     "doc_id"
-    t.text     "doc_description"
-    t.text     "doc_content"
-    t.text     "doc_date"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.text     "title"
+    t.text     "url"
+    t.text     "description"
+    t.text     "content"
+    t.text     "public_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

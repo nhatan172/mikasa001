@@ -4,6 +4,8 @@
     <li><%= link_to t("app.result_box.text_effect_in_month"), "#result2" %></li>
     <li><%= link_to t("app.result_box.text_expires_in_month"), "#result3" %></li>
 
+    <%= render "shared/result_count" %>
+
     <div class="tab-content">
       <div class="tab-pane active" id="result1">
         <% articles.each do |article| %>

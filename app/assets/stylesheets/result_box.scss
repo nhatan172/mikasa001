@@ -2,23 +2,40 @@ $white: #fff;
 $gray-lighter: #f0f0f0;
 $gray-darker: #c1c1c1;
 $yellow: #d2810e;
+$yellow-lighter: #ffe876;
 $green: #276600;
 $red: #d30017;
+$blue-lighter: #318db7;
 
 .result {
   box-shadow: 1px 1px 1px 1px $gray-darker;
   margin-bottom: 30px;
 
+  .results-count {
+    display: inline-block;
+    width: 100%;
+    font-size: 1.2em;
+    padding: 10px;
+    box-shadow: 0px 0px 2px 1px $blue-lighter;
+
+    .count {
+      display: inline-block;
+      color: $red;
+      font-weight: bold;
+    }
+  }
+
   .tab-content {
     display: inline-block;
     width: 100%;
-    margin-top: 20px;
 
     .tab-pane {
       .item {
         width: 100%;
         border-bottom: 1px solid $gray-lighter;
         display: inline-block;
+        margin-top: 15px;
+        box-shadow: 0px 0px 2px 1px $gray-darker;
 
         .title {
           background-color: $yellow;
