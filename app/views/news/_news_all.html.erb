@@ -1,0 +1,12 @@
+<div class="news_all">
+  <div class="home-navigation">
+    <%= link_to "/" do %>
+      <%= fa_icon "home" %>
+      <%= t "app.navbar.home" %>
+    <% end %>
+  </div>
+  <% @news.each do |new_item| %>
+    <%= render "news_item", new_item: new_item %>
+  <% end %>
+</div>
+<%= will_paginate @news %>

@@ -1,9 +1,10 @@
-<% @news.each do |each_new| %>
-	<%= link_to "/news/#{each_new.doc_id}" do %>
-		<%= each_new.doc_title %>
-	<% end %>
-	<%= each_new.doc_date %>
-	</br>
-	<%= each_new.doc_description %>
-	</br>
-<% end %>
+<div class="container">
+  <div class="col-md-3">
+    <%= render "shared/text_much_view" %>
+    <%= render "shared/new_laws" %>
+  </div>
+  <div class="col-md-9">
+    <%= render "news_all" %>
+  </div>
+  <%= render "shared/face_chat" %>
+</div>

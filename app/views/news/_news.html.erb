@@ -1,0 +1,21 @@
+<div class="news">
+  <div class="home-navigation">
+    <%= link_to "/" do %>
+      <%= fa_icon "home" %>
+      <%= t "app.navbar.home" %>
+    <% end %>
+  </div>
+  <div class="news-content">
+    <div class="title">
+      <div class="content">
+        <%= @new.title %>
+      </div>
+      <div class="public-date">
+        <%= @new.public_date %>
+      </div>
+    </div>
+    <div class="content">
+      <%= @new.content.html_safe %>
+    </div>
+  </div>
+</div>

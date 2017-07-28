@@ -7,12 +7,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><%= t "app.navbar.app_name" %></a>
+      <%= link_to t("app.navbar.app_name"), "/", class: "navbar-brand" %>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/"><%= t "app.navbar.home" %></a></li>
-        <li><a href="#"><%= t "app.navbar.about" %></a></li>
+        <% if current_page? "/" %>
+          <li class="active"><%= link_to t("app.navbar.home"), "/" %></li>
+          <li><%= link_to t("app.navbar.about"), "/news" %></li>
+        <% elsif current_page? "/news" %>
+          <li><%= link_to t("app.navbar.home"), "/" %></li>
+          <li class="active"><%= link_to t("app.navbar.about"), "/news" %></li>
+        <% else %>
+          <li><%= link_to t("app.navbar.home"), "/" %></li>
+          <li><%= link_to t("app.navbar.about"), "/news" %></li>
+        <% end %>
       </ul>
     </div>
   </div>

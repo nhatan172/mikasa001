@@ -1,0 +1,13 @@
+<div class="news-item">
+  <div class="title">
+    <div class="content">
+      <%= link_to "#{new_item.title}", "/news/#{new_item.doc_id}" %>
+    </div>
+    <div class="public-date">
+      <%= new_item.public_date %>
+    </div>
+  </div>
+  <div class="description">
+    <%= new_item.description %>
+  </div>
+</div>

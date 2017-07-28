@@ -7,69 +7,72 @@ class SearchesController < ApplicationController
 
   private
 
+  def search_match_phrase
+    if params[:group2_1] == t("app.search_box.filter.filter_4")
+      if params[:group2_2] == t("app.search_box.filter.filter_6")
+        @articles = Article.search params[:query],
+          match: :phrase, order: {public_day: :desc},
+          per_page: 15, page: params[:page]
+      else
+        @articles = Article.search params[:query],
+          match: :phrase, order: {public_day: :asc},
+          per_page: 15, page: params[:page]
+      end
+    else
+      if params[:group2_2] == t("app.search_box.filter.filter_6")
+        @articles = Article.search params[:query],
+          match: :phrase, order: {effect_day: :desc},
+          per_page: 15, page: params[:page]
+      else
+        @articles = Article.search params[:query],
+          match: :phrase, order: {effect_day: :asc},
+          per_page: 15, page: params[:page]
+      end
+    end
+
+    return @articles
+  end
+
+  def search_match_word
+    if params[:group2_1] == t("app.search_box.filter.filter_4")
+      if params[:group2_2] == t("app.search_box.filter.filter_6")
+        @articles = Article.search params[:query], operator: "or",
+          match: :word, order: {public_day: :desc},
+          per_page: 15, page: params[:page]
+      else
+        @articles = Article.search params[:query],
+          match: :word, order: {public_day: :asc}, operator: "or",
+          per_page: 15, page: params[:page]
+      end
+    else
+      if params[:group2_2] == t("app.search_box.filter.filter_6")
+        @articles = Article.search params[:query], operator: "or",
+          match: :word, order: {effect_day: :desc},
+          per_page: 15, page: params[:page]
+      else
+        @articles = Article.search params[:query], operator: "or",
+          match: :word, order: {effect_day: :asc},
+          per_page: 15, page: params[:page]
+      end
+    end
+
+    return @articles
+  end
+
   def search_articles
-    if params[:query].length > 0
-      if params[:group1] && params[:group2]
-        if params[:group1] == t("app.search_box.filter.filter_2")
-          if params[:group2] == t("app.search_box.filter.filter_3")
-            @articles ||= Article.search params[:query],
-              fields: ["content^10", "title^10"], operator: "or",
-              per_page: 15, page: params[:page]
-          elsif params[:group2] == t("app.search_box.filter.filter_4")
-            @articles ||= Article.search params[:query],
-              fields: ["content^10"], operator: "or",
-              per_page: 15, page: params[:page]
-          else
-            @articles ||= Article.search params[:query],
-              fields: ["title^10"], operator: "or",
-              per_page: 15, page: params[:page]
-          end
-        else
-          if params[:group2] == t("app.search_box.filter.filter_3")
-            @articles ||= Article.search params[:query],
-              fields: ["content^10", "title^10"], match: :phrase,
-              per_page: 15, page: params[:page]
-          elsif params[:group2] == t("app.search_box.filter.filter_4")
-            @articles ||= Article.search params[:query],
-              fields: ["content^10"], match: :phrase,
-              per_page: 15, page: params[:page]
-          else
-            @articles ||= Article.search params[:query],
-              fields: ["title^10"], match: :phrase,
-              per_page: 15, page: params[:page]
-          end
-        end
-      elsif params[:group1] && params[:group2] == nil
-        if params[:group1] == t("app.search_box.filter.filter_2")
-          @articles ||= Article.search params[:query],
-            fields: ["content^10", "title^10"], operator: "or",
-            per_page: 15, page: params[:page]
-        else
-          @articles ||= Article.search params[:query],
-            fields: ["content^10", "title^10"], match: :phrase,
-            per_page: 15, page: params[:page]
-        end
-      elsif params[:group1] == nil && params[:group2]
-        if params[:group2] == t("app.search_box.filter.filter_3")
-          @articles ||= Article.search params[:query],
-            fields: ["content^10", "title^10"], match: :phrase,
-            per_page: 15, page: params[:page]
-        elsif params[:group2] == t("app.search_box.filter.filter_4")
-          @articles ||= Article.search params[:query],
-            fields: ["content^10"], match: :phrase, per_page: 15,
-            page: params[:page]
-        else
-          @articles ||= Article.search params[:query],
-            fields: ["title^10"], match: :phrase, per_page: 15,
-            page: params[:page]
+    if params[:query] && params[:query].length > 0
+      if params[:group1]
+        if params[:group1] == t("app.search_box.filter.filter_1")
+          @articles = search_match_phrase
+        elsif params[:group1] == t("app.search_box.filter.filter_2")
+          @articles = search_match_word
         end
       else
-        @articles ||= Article.search params[:query],
-          fields: ["content^10", "title^10"], match: :phrase,
-          per_page: 15, page: params[:page]
+        @articles = search_match_phrase
       end
     else
       @articles = Article.paginate page: params[:page]
     end
   end
 end
+

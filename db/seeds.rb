@@ -1,3 +1,5 @@
+# encoding=utf-8 
+
 input_file = File.new("db/laws.tsv", "r")
 
 while line = input_file.gets

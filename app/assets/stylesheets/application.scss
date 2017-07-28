@@ -20,7 +20,7 @@
 
 $blue-lighter: #318db7;
 $yellow-lighter: #fffb00;
-$gray-lighter-more: #eeeeee;
+$gray-lighter-more: #cfcfcf;
 $white: #fff;
 $gray-lighter: #c1c1c1;
 
@@ -167,6 +167,32 @@ body {
 .btn-primary { 
   background-color: $blue-lighter;
   border-color: $blue-lighter;
+}
+
+.new-laws {
+  box-shadow: 1px 2px 2px 1px $gray-lighter;
+  margin-top: 20px;
+
+  .title {
+    color: $white;
+    background-color: $blue-lighter;
+    padding: 10px;
+  }
+
+  .item {
+    border-bottom: 1px solid $gray-lighter-more;
+    padding: 10px;
+
+    .fa {
+      margin-right: 10px;
+    }
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 @media (min-width: 1200px) {
