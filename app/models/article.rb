@@ -1,4 +1,11 @@
 class Article < ApplicationRecord
+  has_many :parts, class_name: 'Part', foreign_key: 'law_id'
+  has_many :chapters, class_name: 'Chapter', foreign_key: 'law_id'
+  has_many :sections, class_name: 'Section', foreign_key: 'law_id'
+  has_many :laws, class_name: 'Law', foreign_key: 'law_id'
+  has_many :items, class_name: 'Item', foreign_key: 'law_id'
+  has_many :points, class_name: 'Point', foreign_key: 'law_id'
+
   self.per_page = 15
 
   searchkick batch_size: 200, merge_mappings: true,
@@ -30,7 +37,14 @@ class Article < ApplicationRecord
             boost: 10,
             analyzer: "vnanalysis"
           },
-          html_content: {type: "text", index: "true"}
+          index_html: {
+            type: "text",
+            index: "true"
+          },
+          full_html: {
+            type: "text",
+            index: "true"
+          }
         }
       }
     }
@@ -38,6 +52,10 @@ class Article < ApplicationRecord
   class << self
     def search_article_much_view
       Article.order(count_click: :desc).limit(5)
+    end
+
+    def search_article_newest
+      Article.order(public_day: :desc).limit(4)
     end
   end
 end

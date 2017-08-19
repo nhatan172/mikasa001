@@ -81,10 +81,6 @@ $blue-lighter: #318db7;
             border-left: 1px solid $gray-lighter;
             padding-left: 15px;
 
-            .effect-status {
-              color: $red;
-            }
-
             .status-item {
               display: inline-block;
 
@@ -97,6 +93,15 @@ $blue-lighter: #318db7;
                 display: inline-block;
                 float: right;
                 margin-left: 8px;
+              }  
+            }
+
+            .effect-status {
+              color: $red;
+
+              .value {
+                float: left;
+                margin-left: 0;
               }
             }
           }

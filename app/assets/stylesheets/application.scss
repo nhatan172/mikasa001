@@ -24,6 +24,19 @@ $gray-lighter-more: #cfcfcf;
 $white: #fff;
 $gray-lighter: #c1c1c1;
 
+$shadow-color: #bbb;
+
+::-webkit-scrollbar{
+	background-color: rgba(0, 0, 0, 0.2);
+	width: 3px;
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 6px;
+}
+
 @mixin style_link_navbar {
   background-color: $white;
   color: $blue-lighter;

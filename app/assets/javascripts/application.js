@@ -16,20 +16,37 @@
 //= require turbolinks
 //= require_tree .
 
-var amountScrolled = 20;
+var amountScrolled = 30;
 
-$(window).scroll(function() {
-  if ( $(this).scrollTop() > amountScrolled ) {
-    $('back-to-top').fadeIn('slow');
-  } 
-  else {
-    $('back-to-top').fadeOut('slow');
-  }
+$(document).ready(function(){
+	$("a.internal_link").on('click', function(event) {
+		if (this.hash !== "") {
+			event.preventDefault();
+
+			var hash = this.hash;
+
+			$('html, body').animate({
+				scrollTop: $(hash).offset().top
+			}, 1100, function(){
+		
+			window.location.hash = hash;
+			});
+		}
+	});
+
+	$('a.back-to-top-btn').click(function() {
+		$('html, body').animate({
+			scrollTop: 0
+		}, 1050);
+		return false;
+	});
 });
 
-$('back_to_top').find('a').click(function() {
-  $('html, body').animate({
-    scrollTop: 0
-  }, 800);
-  return false;
+$(window).scroll(function() {
+	if ( $(window).scrollTop() > amountScrolled ) {
+		$('div.back-to-top').fadeIn('slow');
+	} 
+	else {
+		$('div.back-to-top').fadeOut('slow');
+	}
 });
