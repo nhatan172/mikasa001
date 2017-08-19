@@ -1,11 +1,349 @@
 class ArticlesController < ApplicationController
+  before_action :get_article, only: [:show]
+  before_action :render_index_html, only: [:show]
+
   def show
-    @article = Article.find_by id: params[:id]
     count = @article.count_click + 1
     @article.update_attributes count_click: count
   end
 
   def index
     @articles = Article.paginate page: params[:page]
+  end
+
+  private
+
+  def get_article
+    @article = Article.find_by id: params[:id]
+  end
+
+  def render_index_html
+    if @article.content.length > 0 &&
+        (@article.index_html == nil || @article.index_html.length == 0)
+      @index_html = ''
+
+      remove_redundant_element
+
+      @parts = @article.parts
+      @chapters = @article.chapters.order(chap_name: :asc, part_index: :asc)
+      @sections = @article.sections.order(sec_name: :asc)
+      @laws = @article.laws.order(part_index: :asc, chap_index: :asc,
+      sec_index: :asc, law_index: :asc)
+
+      parts_size = 0
+      chapters_size = 0
+      sections_size = 0
+      laws_size = 0
+
+      @parts.each do |part|
+        parts_size = part.totalpart
+        break
+      end
+
+      @chapters.each do |chapter|
+        chapters_size = chapter.totalchap
+        break
+      end
+
+      @sections.each do |section|
+        sections_size = section.totalsec
+        break
+      end
+
+      @laws.each do |law|
+        laws_size = law.totallaw
+        break
+      end
+
+      parts_position_list = {}
+      chapters_position_list = {}
+
+      if parts_size > 0
+        parts_position_list = make_parts_position_list
+      end
+
+      if chapters_size > 0
+        @chapters.each do |chapter|
+          if chapter.chap_name != nil
+            link_prefix = '<a id="'
+            if parts_size > 0
+              chapters_position_list = make_chapters_position_list_with_part parts_position_list
+              link_prefix += 'part' + (chapter.part_index + 1).to_s + '_'
+              full_link = link_prefix + 'chapter' +
+              (chapter.chap_index + 1).to_s  + '">' + '</a>'
+              chapters_position_list.each do |key, values|
+                if key.to_s.to_i == chapter.chap_index
+                  values.each do |part_index, chap_position|
+                    if part_index.to_s.to_i == chapter.part_index
+                      @full_html.insert chap_position, full_link
+                      break
+                    end
+                  end
+                  break
+                end
+              end
+            else
+              index = @full_html.index '<strong>' + chapter.chap_name + '</strong>'
+              if index == nil
+                index = @full_html.index chapter.chap_name + '</p>'
+              end
+              full_link = link_prefix + 'chapter' +
+                (chapter.chap_index + 1).to_s + '">' + '</a>'
+              @full_html.insert index, full_link
+            end
+          end
+        end
+      end
+
+      chapters_position_list = {}
+
+      if parts_size == 0 
+        chapters_position_list = make_chapters_position_list_with_out_part
+      else
+        chapters_position_list = make_chapters_position_list_with_part parts_position_list
+      end
+
+      sections_position_list = {}
+
+      if sections_size > 0
+        @sections.each do |section|
+          if section.sec_name != nil
+            link_prefix = '<a id="'
+            if chapters_size > 0
+              if parts_size == 0
+                sections_position_list = {}
+              end
+              @full_html.to_enum(:scan, '<strong>' + section.sec_name + '</strong>').map do |m, |
+                before_chap_index = -1
+                before_part_index = -1
+                chapters_position_list.each do |chap_index, values|
+                  values.each_with_index do |(part_index, chap_position), index|
+                    if chap_position < $`.size
+                      if index == values.length - 1
+                        sections_position_list[$`.size.to_s.to_sym] = 
+                        {"chap_index": chap_index.to_s.to_i,
+                          "part_index": part_index.to_s.to_i}
+                      else
+                        before_chap_index = chap_index.to_s.to_i
+                        before_part_index = part_index.to_s.to_i
+                      end
+                    else
+                      sections_position_list[$`.size.to_s.to_sym] = 
+                      {"chap_index": chap_index.to_s.to_i,
+                        "part_index": part_index.to_s.to_i}
+                    end
+                  end
+                end
+              end
+              @full_html.to_enum(:scan, section.sec_name + '</p>').map do |m, |
+                before_chap_index = -1
+                before_part_index = -1
+                chapters_position_list.each do |chap_index, values|
+                  if section.chap_index == chap_index
+                    values.each_with_index do |(part_index, chap_position), index|
+                      if chap_position < $`.size
+                        if index == values.length - 1
+                          sections_position_list[$`.size.to_s.to_sym] = 
+                          {"chap_index": chap_index.to_s.to_i,
+                            "part_index": part_index.to_s.to_i}
+                        else
+                          before_chap_index = chap_index.to_s.to_i
+                          before_part_index = part_index.to_s.to_i
+                        end
+                      else
+                        sections_position_list[$`.size.to_s.to_sym] = 
+                        {"chap_index": chap_index.to_s.to_i,
+                          "part_index": part_index.to_s.to_i}
+                      end
+                    end
+                  end
+                end
+              end
+            end
+            if parts_size == 0 && chapters_size == 0
+              index = @full_html.index '<strong>' + section.sec_name + '</strong>'
+              full_link = link_prefix + 'section' +
+                (section.sec_index + 1).to_s  + '"></a>'
+              @full_html.insert index, full_link
+            elsif parts_size > 0 && chapters_size == 0
+              sections_position_list.each do |key, value|
+                if value["part_index".to_sym] == section.part_index
+                  full_link = link_prefix + 'part' +
+                    (section.part_index + 1).to_s + '_section' +
+                    (section.sec_index + 1).to_s  + '"></a>'
+                  @full_html.insert key.to_s.to_i, full_link
+                  break
+                end
+              end
+            elsif parts_size == 0 && chapters_size > 0
+              sections_position_list.each do |key, value|
+                if value["chap_index".to_sym] == section.chap_index
+                  full_link = link_prefix + 'part' +
+                    (section.chap_index + 1).to_s + '_section' +
+                    (section.sec_index + 1).to_s  + '"></a>'
+                  @full_html.insert key.to_s.to_i, full_link
+                  break
+                end
+              end
+            elsif parts_size > 0 && chapters_size > 0
+              sections_position_list.each do |key, value|
+                if value["chap_index".to_sym] == section.chap_index and
+                  value["part_index".to_sym] == section.part_index
+                    full_link = link_prefix + 'part' +
+                      (section.part_index + 1).to_s + 
+                      '_chap' + (section.chap_index + 1).to_s +
+                      '_section' + (section.sec_index + 1).to_s  + '"></a>'
+                    @full_html.insert key.to_s.to_i, full_link
+                    break
+                end
+              end
+            end
+          end
+        end
+      end
+
+      if laws_size > 0
+        @laws.each_with_index do |law, index|
+          index_insert = @full_html.index law.law_name
+          @full_html.insert index_insert, '<a id="law' + (index + 1).to_s  + '"></a>'
+        end
+      end
+
+      mark_part = -1
+      mark_chapter = -1
+      mark_section = -1
+      @laws.each_with_index do |law, index|
+        if parts_size != 0 and mark_part != law.part_index
+          mark_part = law.part_index
+          @index_html += '<div class="part_index"><a class="internal_link" href="#part' + 
+            (law.part_index + 1).to_s + '">Phần ' + 
+            (law.part_index + 1).to_s + '</a></div>'
+        end
+        if chapters_size != 0 and mark_chapter != law.chap_index
+          mark_chapter = law.chap_index
+          chapter = @chapters.find_by(part_index: law.part_index, chap_index: law.chap_index)
+          if chapter.chap_name != nil
+            prefix_link_index = '<div class="chapter_index"><a class="internal_link" href="#'
+            if parts_size > 0
+              prefix_link_index += 'part' + (law.part_index + 1).to_s + '_'
+            end
+            full_link_index = prefix_link_index + 'chapter' +
+            (law.chap_index + 1).to_s + '">' + 
+            chapter.chap_name + '</a></div>'
+            @index_html += full_link_index
+          end
+        end
+        if sections_size != 0 and mark_section != law.sec_index
+          mark_section = law.sec_index
+          prefix_link_index = '<div class="section_index"><a class="internal_link" href="#'
+          if parts_size > 0
+            prefix_link_index += 'part' + (law.part_index + 1).to_s + '_'
+          end
+          if chapters_size > 0
+            prefix_link_index += 'chap' + (law.chap_index + 1).to_s + '_'
+          end
+          full_link_index = prefix_link_index + 'section' +
+            (law.sec_index + 1).to_s + '">Mục ' +
+            (law.sec_index + 1).to_s + '</a></div>'
+          @index_html += full_link_index
+        end
+        @index_html += '<div class="law_index"><a class="internal_link" href="#law' + 
+          (index + 1).to_s + '">' + law.law_name + '</a></div>'
+      end
+      @article.update_attributes(index_html: @index_html)
+      @article.update_attributes(full_html: @full_html)
+    end
+  end
+  
+  def remove_redundant_element
+    link_regex = /\<a\sname\=\"([p|P]han\_\w*\S*)*(\_*[c|C]huong\_\w{1,})*(\_*[m|M]uc\_\d{1,})*(\_*[D|d]ieu\_\d{1,})*\"\>\<\/\w\>/
+    
+    @full_html = @article.full_html
+    @full_html.gsub!(link_regex, '')
+    @full_html.gsub!('\n', '')
+    @full_html.gsub!('\r', '')
+    @full_html.gsub!('\t', '')
+  end
+
+  def make_parts_position_list
+    @parts.each do |part|
+      position = @full_html.index '<strong>' + part.name_part + '</strong>'
+      if position == nil
+        position = @full_html.index part.name_part + '</p>'
+      end
+      @full_html.insert position, '<a id="part' + (part.part_index + 1).to_s  +
+        '"></a>'
+    end
+    parts_position_list = {}
+    @parts.each do |part|
+      position = @full_html.index '<strong>' + part.name_part + '</strong>'
+      if position == nil
+        position = @full_html.index part.name_part + '</p>'
+      end
+      parts_position_list[part.part_index.to_s.to_sym] = position
+    end
+    parts_position_list = Hash[parts_position_list.sort_by{|key, value| value}]
+  end
+
+  def make_chapters_position_list_with_out_part
+    chapters_position_list = {}
+    pre_chap_name = ''
+    @chapters.each do |chapter|
+      if chapter.chap_name != nil
+        if pre_chap_name == '' || pre_chap_name == chapter.chap_name
+          @full_html.to_enum(:scan, '<strong>' + chapter.chap_name + '</strong>').map do |m, |
+            chapters_position_list[chapter.chap_index.to_s.to_sym][-1.to_s.to_sym] =
+              $`.size
+          end
+          @full_html.to_enum(:scan, chapter.chap_name + '</p>').map do |m, |
+            chapters_position_list[chapter.chap_index.to_s.to_sym][-1.to_s.to_sym] =
+              $`.size
+          end
+        end
+      end
+    end
+    chapters_position_list = Hash[chapters_position_list.sort_by{|key, value| key}]
+  end
+
+  def iterate_full_html_to_extract_chapter search_string, chapter, parts_position_list
+    @full_html.to_enum(:scan, search_string).map do |m, |
+      before_part_index = -1
+      parts_position_list.each_with_index do |(part_index, part_position), index|
+        if part_position < $`.size
+          if index == parts_position_list.length - 1
+            if @chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
+              @chapters_position_list[chapter.chap_index.to_s.to_sym][part_index.to_s.to_sym] =
+                $`.size
+            else
+              @chapters_position_list[chapter.chap_index.to_s.to_sym] =
+                {part_index.to_s.to_sym =>  $`.size}
+            end
+          else
+            before_part_index = part_index.to_s.to_i
+          end
+        else
+          if @chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
+            @chapters_position_list[chapter.chap_index.to_s.to_sym][before_part_index.to_s.to_sym] =
+              $`.size
+          else
+            @chapters_position_list[chapter.chap_index.to_s.to_sym] =
+              {before_part_index.to_s.to_sym =>  $`.size}
+          end
+        end
+      end
+    end
+  end
+
+  def make_chapters_position_list_with_part parts_position_list
+    @chapters_position_list = {}
+    @chapters.each do |chapter|
+      if chapter.chap_name != nil
+        iterate_full_html_to_extract_chapter '<strong>' + chapter.chap_name + '</strong>',
+          chapter, parts_position_list
+        iterate_full_html_to_extract_chapter chapter.chap_name + '</p>',
+          chapter, parts_position_list
+      end
+    end
+    return @chapters_position_list
   end
 end

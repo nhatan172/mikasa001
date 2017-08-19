@@ -1,0 +1,7 @@
+<% @articles_newest = Article.search_article_newest %>
+<% @articles_newest.each do |article| %>
+  <div class="item">
+    <%= fa_icon "bookmark-o" %>
+    <%= link_to article.title, "/articles/#{article.id}" %>
+  </div>
+<% end %>
