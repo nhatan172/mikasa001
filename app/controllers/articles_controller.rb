@@ -58,6 +58,7 @@ class ArticlesController < ApplicationController
 
       parts_position_list = {}
       chapters_position_list = {}
+      @finish_parts__position_list = false
 
       if parts_size > 0
         parts_position_list = make_parts_position_list
@@ -114,63 +115,90 @@ class ArticlesController < ApplicationController
           if section.sec_name != nil
             link_prefix = '<a id="'
             parts_position_list = make_parts_position_list
-            chapters_position_list = make_chapters_position_list_with_part parts_position_list
+            if parts_size == 0
+              chapters_position_list = make_chapters_position_list_with_out_part
+            else
+              chapters_position_list = make_chapters_position_list_with_part parts_position_list
+            end
             sections_position_list = {}
+            done = false
             if chapters_size > 0
-              done = 0
               @full_html.to_enum(:scan, '<strong>' + section.sec_name + '</strong>').map do |m, |
-                before_chap_index = -1
-                before_part_index = -1
+                #byebug
                 chapters_position_list.each do |chap_index, values|
+                  before_chap_index = -1
+                  before_part_index = -1
                   values.each_with_index do |(part_index, chap_position), index|
+                    #byebug
                     if chap_position < $`.size
                       if index == values.length - 1
-                        sections_position_list[$`.size.to_s.to_sym] = 
-                          {"chap_index": chap_index.to_s.to_i,
+                        if chap_index.to_s.to_i == section.chap_index and
+                          part_index.to_s.to_i == section.part_index
+                          sections_position_list[$`.size.to_s.to_sym] = 
+                            {"chap_index": chap_index.to_s.to_i,
                             "part_index": part_index.to_s.to_i}
-                        done = 1
-                        break
+                          done = true
+                          break
+                        end
                       else
-                        before_chap_index = chap_index.to_s.to_i
-                        before_part_index = part_index.to_s.to_i
+                        if chap_index.to_s.to_i == section.chap_index and
+                          part_index.to_s.to_i == section.part_index
+                            before_chap_index = chap_index.to_s.to_i
+                            before_part_index = part_index.to_s.to_i
+                        end
                       end
                     else
-                      sections_position_list[$`.size.to_s.to_sym] = 
-                        {"chap_index": before_chap_index,
-                          "part_index": before_part_index}
-                      done = 1
-                      break
+                      if before_chap_index == section.chap_index and
+                        before_part_index == section.part_index
+                          sections_position_list[$`.size.to_s.to_sym] = 
+                            {"chap_index": before_chap_index,
+                            "part_index": before_part_index}
+                          done = true
+                          break
+                      end
                     end
                   end
-                  break if done == 1
+                  break if done
                 end
+                break if done
               end
-              done = 0
-              @full_html.to_enum(:scan, section.sec_name + '</p>').map do |m, |
-                before_chap_index = -1
-                before_part_index = -1
-                chapters_position_list.each do |chap_index, values|
-                  values.each_with_index do |(part_index, chap_position), index|
-                    if chap_position < $`.size
-                      if index == values.length - 1
-                        sections_position_list[$`.size.to_s.to_sym] = 
-                          {"chap_index": chap_index.to_s.to_i,
-                            "part_index": part_index.to_s.to_i}
-                        done = 1
-                        break 
+              if done == false
+                @full_html.to_enum(:scan, section.sec_name + '</p>').map do |m, |
+                  chapters_position_list.each do |chap_index, values|
+                    before_chap_index = -1
+                    before_part_index = -1
+                    values.each_with_index do |(part_index, chap_position), index|
+                      if chap_position < $`.size
+                        if index == values.length - 1
+                          if chap_index.to_s.to_i == section.chap_index and
+                            part_index.to_s.to_i == section.part_index
+                            sections_position_list[$`.size.to_s.to_sym] = 
+                              {"chap_index": chap_index.to_s.to_i,
+                              "part_index": part_index.to_s.to_i}
+                            done = true
+                            break
+                          end
+                        else
+                          if chap_index.to_s.to_i == section.chap_index and
+                            part_index.to_s.to_i == section.part_index
+                              before_chap_index = chap_index.to_s.to_i
+                              before_part_index = part_index.to_s.to_i
+                          end
+                        end
                       else
-                        before_chap_index = chap_index.to_s.to_i
-                        before_part_index = part_index.to_s.to_i
+                        if before_chap_index == section.chap_index and
+                          before_part_index == section.part_index
+                            sections_position_list[$`.size.to_s.to_sym] = 
+                              {"chap_index": before_chap_index,
+                              "part_index": before_part_index}
+                            done = true
+                            break
+                        end
                       end
-                    else
-                      sections_position_list[$`.size.to_s.to_sym] = 
-                        {"chap_index": before_chap_index,
-                          "part_index": before_part_index}
-                      done = 1
-                      break
                     end
+                    break if done
                   end
-                  break if done == 1
+                  break if done
                 end
               end
             end
@@ -192,7 +220,7 @@ class ArticlesController < ApplicationController
             elsif parts_size == 0 && chapters_size > 0
               sections_position_list.each do |key, value|
                 if value["chap_index".to_sym] == section.chap_index
-                  full_link = link_prefix + 'part' +
+                  full_link = link_prefix + 'chap' +
                     (section.chap_index + 1).to_s + '_section' +
                     (section.sec_index + 1).to_s  + '"></a>'
                   @full_html.insert key.to_s.to_i, full_link
@@ -286,15 +314,18 @@ class ArticlesController < ApplicationController
   end
 
   def make_parts_position_list
-    @parts.each do |part|
-      position = @full_html.index '<strong>' + part.name_part + '</strong>'
-      if position == nil
-        position = @full_html.index part.name_part + '</p>'
+    if @finish_parts_position_list == false
+      @parts.each do |part|
+        position = @full_html.index '<strong>' + part.name_part + '</strong>'
+        if position == nil
+          position = @full_html.index part.name_part + '</p>'
+        end
+        if position != nil
+          @full_html.insert position, '<a id="part' + (part.part_index + 1).to_s  +
+            '"></a>'
+        end
       end
-      if position != nil
-        @full_html.insert position, '<a id="part' + (part.part_index + 1).to_s  +
-          '"></a>'
-      end
+      @finish_parts_position_list = true
     end
     parts_position_list = {}
     @parts.each do |part|
@@ -317,29 +348,29 @@ class ArticlesController < ApplicationController
         if pre_chap_name == '' || pre_chap_name == chapter.chap_name
           @full_html.to_enum(:scan, '<strong>' + chapter.chap_name + '</strong>').map do |m, |
             if chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
-              chapters_position_list[chapter.chap_index.to_s.to_sym][-1.to_s.to_sym] =
+              chapters_position_list[chapter.chap_index.to_s.to_sym][0.to_s.to_sym] =
                 $`.size
             else
               chapters_position_list[chapter.chap_index.to_s.to_sym] =
-                {-1.to_s.to_sym => $`.size}
+                {0.to_s.to_sym => $`.size}
             end
           end
           @full_html.to_enum(:scan, chapter.chap_name + '</p>').map do |m, |
             if chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
-              chapters_position_list[chapter.chap_index.to_s.to_sym][-1.to_s.to_sym] =
+              chapters_position_list[chapter.chap_index.to_s.to_sym][0.to_s.to_sym] =
                 $`.size
             else
               chapters_position_list[chapter.chap_index.to_s.to_sym] =
-                {-1.to_s.to_sym => $`.size}
+                {0.to_s.to_sym => $`.size}
             end
           end
           @full_html.to_enum(:scan, chapter.chap_name + '</span>').map do |m, |
             if chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
-              chapters_position_list[chapter.chap_index.to_s.to_sym][-1.to_s.to_sym] =
+              chapters_position_list[chapter.chap_index.to_s.to_sym][0.to_s.to_sym] =
                 $`.size
             else
               chapters_position_list[chapter.chap_index.to_s.to_sym] =
-                {-1.to_s.to_sym => $`.size}
+                {0.to_s.to_sym => $`.size}
             end
           end
         end
