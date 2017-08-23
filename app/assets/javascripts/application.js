@@ -18,7 +18,7 @@
 
 var amountScrolled = 30;
 
-$(document).ready(function(){
+$(document).on('ready page:load', function(){
 	$("a.internal_link").on('click', function(event) {
 		if (this.hash !== "") {
 			event.preventDefault();
