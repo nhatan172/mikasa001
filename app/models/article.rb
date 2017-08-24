@@ -5,7 +5,7 @@ class Article < ApplicationRecord
   has_many :laws, class_name: 'Law', foreign_key: 'law_id'
   has_many :items, class_name: 'Item', foreign_key: 'law_id'
   has_many :points, class_name: 'Point', foreign_key: 'law_id'
-
+  
   self.per_page = 15
 
   searchkick batch_size: 200, merge_mappings: true,
@@ -44,6 +44,10 @@ class Article < ApplicationRecord
           full_html: {
             type: "text",
             index: "true"
+          },
+          public_day: {
+            type: "date",
+            index: "true"
           }
         }
       }
@@ -56,6 +60,13 @@ class Article < ApplicationRecord
 
     def search_article_newest
       Article.order(public_day: :desc).limit(4)
+    end
+
+    def filter_by_type opts = {}
+      article_type = opts[:article_type]
+      if article_type != nil
+        self.where article_type: article_type
+      end
     end
   end
 end

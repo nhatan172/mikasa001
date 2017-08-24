@@ -90,6 +90,9 @@ class ArticlesController < ApplicationController
               if index == nil
                 index = @full_html.index chapter.chap_name + '</p>'
               end
+              if index == nil
+                index = @full_html.index chapter.chap_name + '</b></font>'
+              end
               if index != nil
                 full_link = link_prefix + 'chapter' +
                   (chapter.chap_index + 1).to_s + '">' + '</a>'
@@ -164,6 +167,45 @@ class ArticlesController < ApplicationController
               end
               if done == false
                 @full_html.to_enum(:scan, section.sec_name + '</p>').map do |m, |
+                  chapters_position_list.each do |chap_index, values|
+                    before_chap_index = -1
+                    before_part_index = -1
+                    values.each_with_index do |(part_index, chap_position), index|
+                      if chap_position < $`.size
+                        if index == values.length - 1
+                          if chap_index.to_s.to_i == section.chap_index and
+                            part_index.to_s.to_i == section.part_index
+                            sections_position_list[$`.size.to_s.to_sym] = 
+                              {"chap_index": chap_index.to_s.to_i,
+                              "part_index": part_index.to_s.to_i}
+                            done = true
+                            break
+                          end
+                        else
+                          if chap_index.to_s.to_i == section.chap_index and
+                            part_index.to_s.to_i == section.part_index
+                              before_chap_index = chap_index.to_s.to_i
+                              before_part_index = part_index.to_s.to_i
+                          end
+                        end
+                      else
+                        if before_chap_index == section.chap_index and
+                          before_part_index == section.part_index
+                            sections_position_list[$`.size.to_s.to_sym] = 
+                              {"chap_index": before_chap_index,
+                              "part_index": before_part_index}
+                            done = true
+                            break
+                        end
+                      end
+                    end
+                    break if done
+                  end
+                  break if done
+                end
+              end
+              if done == false
+                @full_html.to_enum(:scan, section.sec_name + '</b></font>').map do |m, |
                   chapters_position_list.each do |chap_index, values|
                     before_chap_index = -1
                     before_part_index = -1
@@ -280,7 +322,7 @@ class ArticlesController < ApplicationController
         if sections_size != 0 and mark_section != law.sec_index
           section = @sections.find_by(part_index: law.part_index,
             chap_index: law.chap_index, sec_index: law.sec_index)
-          if section.sec_name != nil
+          if section.sec_name != nil and section.sec_name.present?
             mark_section = law.sec_index
             prefix_link_index = '<div class="section_index"><a class="internal_link" href="#'
             if parts_size > 0
@@ -373,6 +415,15 @@ class ArticlesController < ApplicationController
                 {0.to_s.to_sym => $`.size}
             end
           end
+          @full_html.to_enum(:scan, chapter.chap_name + '</b></font>').map do |m, |
+            if chapters_position_list[chapter.chap_index.to_s.to_sym] != nil
+              chapters_position_list[chapter.chap_index.to_s.to_sym][0.to_s.to_sym] =
+                $`.size
+            else
+              chapters_position_list[chapter.chap_index.to_s.to_sym] =
+                {0.to_s.to_sym => $`.size}
+            end
+          end
         end
       end
     end
@@ -421,6 +472,8 @@ class ArticlesController < ApplicationController
         iterate_full_html_to_extract_chapter chapter.chap_name + '</p>',
           chapter, parts_position_list
         iterate_full_html_to_extract_chapter chapter.chap_name + '</span>',
+          chapter, parts_position_list
+        iterate_full_html_to_extract_chapter chapter.chap_name + '</b></font>',
           chapter, parts_position_list
       end
     end

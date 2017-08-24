@@ -59,6 +59,21 @@ class SearchesController < ApplicationController
     return @articles
   end
 
+  def filter_by_article_type
+    @articles = Article.search where: {article_type: params[:article_type]},
+      per_page: 15, page: params[:page]
+  end
+
+  def filter_by_year_issued
+    from_year = Time.parse params[:from_year] + '-1-1'
+    to_year = Time.parse params[:to_year] + '-12-31'
+    date_range = {}
+    date_range[:gte] = from_year
+    date_range[:lte] =to_year
+    @articles = Article.search where: {public_day: date_range},
+      per_page: 15, page: params[:page]
+  end
+
   def search_articles
     if params[:query] && params[:query].length > 0
       if params[:group1]
@@ -71,7 +86,14 @@ class SearchesController < ApplicationController
         @articles = search_match_phrase
       end
     else
-      @articles = Article.paginate page: params[:page]
+      if params[:article_type]
+        @articles = filter_by_article_type
+      elsif params[:agency_issued]
+      elsif params[:from_year] and params[:to_year]
+        @articles = filter_by_year_issued
+      else
+        @articles = Article.paginate page: params[:page]
+      end
     end
   end
 end

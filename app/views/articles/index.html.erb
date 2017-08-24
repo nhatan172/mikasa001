@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-2">
-      <%= render "shared/category_box" %>
+      <%= render "shared/category_box", articles: @articles %>
     </div>
     <div class="col-md-6">
       <%= render "shared/result_box", articles: @articles %>
