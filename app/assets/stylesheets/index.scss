@@ -13,9 +13,9 @@ $yellow-more-lighter: #f39d24;
 }
 
 .index {
-  box-shadow: 1px 1px 1px 1px $gray-lighter;
-  height: 550px;
-  overflow-y: scroll;
+  box-shadow: 0 1px 1px 1px $gray-lighter;
+  position: fixed;
+  width: 190px;
 
   .title {
     @include title_style;
@@ -23,6 +23,9 @@ $yellow-more-lighter: #f39d24;
   }
 
   .content {
+    overflow-y: scroll;
+    height: 550px;
+
     a{
       color: $white;
       text-decoration: none;
@@ -52,5 +55,24 @@ $yellow-more-lighter: #f39d24;
         color: $black;
       }
     }
+  }
+}
+
+@media (max-width: 1315px) {
+  .index {
+    width: 150px;
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .index {
+    margin-left: -20px;
+  }
+}
+
+@media (max-width: 992px){
+  .index {
+    visibility: hidden;
   }
 }

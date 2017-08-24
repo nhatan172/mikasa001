@@ -38,59 +38,48 @@
     <div class="title"><%= t "app.category_box.category_type.title" %></div>
     <div class="content">
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_1" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_1",
+          value: t('app.category_box.category_type.type_1') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_2" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_2",
+          value: t('app.category_box.category_type.type_2') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_3" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_3",
+          value: t('app.category_box.category_type.type_3') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_4" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_4",
+          value: t('app.category_box.category_type.type_4') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_5" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_5",
+          value: t('app.category_box.category_type.type_5') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_6" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_6",
+          value: t('app.category_box.category_type.type_6') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_7" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_7",
+          value: t('app.category_box.category_type.type_7') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_8" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_8",
+          value: t('app.category_box.category_type.type_8') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_9" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_9",
+          value: t('app.category_box.category_type.type_9') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_10" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_10",
+          value: t('app.category_box.category_type.type_10') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_type.type_11" %>
-        <% end %>
+        <%= render "shared/filter_form_article_type", form_type: "form_type_11",
+          value: t('app.category_box.category_type.type_11') %>
       </div>
     </div>
   </div>
@@ -98,44 +87,52 @@
     <div class="title"><%= t "app.category_box.category_year.title" %></div>
     <div class="content">
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_1" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_1",
+          from_year: t('app.category_box.category_year.year_1.from_year'),
+          to_year: t('app.category_box.category_year.year_1.to_year'),
+          value: t('app.category_box.category_year.year_1.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_2" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_2",
+          from_year: t('app.category_box.category_year.year_2.from_year'),
+          to_year: t('app.category_box.category_year.year_2.to_year'),
+          value: t('app.category_box.category_year.year_2.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_3" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_3",
+          from_year: t('app.category_box.category_year.year_3.from_year'),
+          to_year: t('app.category_box.category_year.year_3.to_year'),
+          value: t('app.category_box.category_year.year_3.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_4" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_4",
+          from_year: t('app.category_box.category_year.year_4.from_year'),
+          to_year: t('app.category_box.category_year.year_4.to_year'),
+          value: t('app.category_box.category_year.year_4.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_5" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_5",
+          from_year: t('app.category_box.category_year.year_5.from_year'),
+          to_year: t('app.category_box.category_year.year_5.to_year'),
+          value: t('app.category_box.category_year.year_5.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_6" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_6",
+          from_year: t('app.category_box.category_year.year_6.from_year'),
+          to_year: t('app.category_box.category_year.year_6.to_year'),
+          value: t('app.category_box.category_year.year_6.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_7" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_7",
+          from_year: t('app.category_box.category_year.year_7.from_year'),
+          to_year: t('app.category_box.category_year.year_7.to_year'),
+          value: t('app.category_box.category_year.year_7.title') %>
       </div>
       <div class="item">
-        <%= link_to "#" do %>
-          <%= t "app.category_box.category_year.year_8" %>
-        <% end %>
+        <%= render "shared/filter_form_year", form_year: "form_year_8",
+          from_year: t('app.category_box.category_year.year_8.from_year'),
+          to_year: t('app.category_box.category_year.year_8.to_year'),
+          value: t('app.category_box.category_year.year_8.title') %>
       </div>
     </div>
   </div>

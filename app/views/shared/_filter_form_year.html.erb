@@ -1,0 +1,5 @@
+<%= form_tag searches_path, method: :get, id: "#{form_year}" do |f| %>
+  <input type="hidden" name="from_year" value="<%= from_year %>" />
+  <input type="hidden" name="to_year" value="<%= to_year %>" />
+  <%= link_to "#{value}", "", onclick: "$('##{form_year}').submit()" %>
+<% end %>
