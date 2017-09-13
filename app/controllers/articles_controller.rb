@@ -17,11 +17,11 @@ class ArticlesController < ApplicationController
     @article = Article.find_by id: params[:id]
   end
 
+
   def render_index_html
     if @article.content.length > 0 &&
         (@article.index_html == nil || @article.index_html.length == 0)
       @index_html = ''
-
       remove_redundant_element
 
       @parts = @article.parts
@@ -340,6 +340,36 @@ class ArticlesController < ApplicationController
         @index_html += '<div class="law_index"><a class="internal_link" href="#law' + 
           (index + 1).to_s + '">' + law.law_name + '</a></div>'
       end
+      ########
+      if @article.isLawModify?
+        @modifies = @article.relationshipmodifies
+        browsed = []
+        @modifies.each do |a|
+          if browsed.include? a.position 
+            next
+          end
+          browsed.push(a.position)
+          title = get_title(a.position)
+          modified_law_id = a.modified_law_id
+          html_insert = '<a target="_blank" title="Đi đến văn bản được sửa đổi" href="/articles/' + modified_law_id + '" class="link_modify"><span class="glyphicon glyphicon-share-alt"></span></a>'
+          if title != nil
+            pattern = convert2regex(title)
+            pattern =  eval('"' + pattern + '"')
+            pattern = pattern[0,pattern.length]
+            pattern =pattern.force_encoding("UTF-8")
+            find = /#{pattern}/m.match(@full_html)
+            if find != nil
+              @full_html = @full_html[0,find.end(0)] + html_insert + @full_html[find.end(0),@full_html.length]
+              print '__1__' + pattern + '____'
+            else
+              print '__2__' + pattern + '____'
+            end
+          else
+            print '__3__' + a.position + '____'
+          end
+        end
+      end
+      #######
       @article.update_attributes(index_html: @index_html)
       @article.update_attributes(full_html: @full_html)
     end
@@ -478,5 +508,93 @@ class ArticlesController < ApplicationController
       end
     end
     return @chapters_position_list
+  end
+
+  def get_title(string)
+    indexSet = string.split('_')
+    partIndex = nil
+    chapIndex = nil
+    secIndex = nil
+    lawIndex = nil
+    itemIndex = nil
+    pointIndex = nil
+
+    (1..indexSet.length).each do |x|
+      case x
+        when 1
+          partIndex = indexSet[0].to_i == 0? nil : indexSet[0].to_i - 1
+        when 2
+          chapIndex = indexSet[1].to_i == 0? nil : indexSet[1].to_i - 1
+        when 3
+          secIndex = indexSet[2].to_i == 0? nil : indexSet[2].to_i - 1
+        when 4
+          lawIndex = indexSet[3].to_i == 0? nil : indexSet[3].to_i - 1
+        when 5
+          itemIndex = indexSet[4].to_i == 0? nil : indexSet[4].to_i - 1
+        when 6
+          pointIndex = indexSet[5].to_i == 0? nil : indexSet[5].to_i - 1
+      end
+    end
+    if lawIndex == nil
+      return nil
+    end
+    if pointIndex != nil
+      points = @article.points.where(point_index: pointIndex)
+      points.each do |point|
+        if point.part_index == partIndex && point.chap_index == chapIndex && point.sec_index == secIndex && point.law_index == lawIndex && point.item_index == itemIndex
+          return firstStrip(point.point_content)
+        end
+      end
+    elsif itemIndex != nil
+      items = @article.items.where(item_index: itemIndex)
+      items.each do |item|
+        if item.part_index == partIndex && item.chap_index == chapIndex && item.sec_index == secIndex && item.law_index == lawIndex
+          return firstStrip(item.item_content)
+        end
+      end
+    elsif
+      laws = @article.laws.where(law_index: lawIndex)
+      laws.each do |law|
+        if law.part_index == partIndex && law.chap_index == chapIndex && law.sec_index == secIndex
+          return firstStrip(law.law_content)
+        end
+      end
+    end
+    return nil
+  end
+
+  def convert2regex(string)
+    symbol = ['_','*','#',"\n"]
+    symbol.each do |a| 
+      string = string.gsub(a,"")
+    end
+    string = string.gsub('\.','.')
+    string = string.strip()
+    index = 0
+    string = string.gsub('(','?')
+    string = string.gsub(')','!')
+    for i in 0..(string.length-2)
+      string = string[0,index] + '(<[^\<]+>)*' + string[index,string.length]
+      index += 12
+    end
+    string = string.gsub('?','\(')
+    string = string.gsub('!','\)')
+    string = string.gsub("/",'\/')
+    string = string.gsub(".","\\.")
+    string = string.gsub(/\s/,"\\\\s*")
+    return string
+  end
+
+  def firstStrip(string)
+    find = /^(\n|\s)+/.match(string)
+    if find != nil
+      string = string[find.end(0),string.length]
+    end
+    find = /\n/.match(string)
+    if find != nil
+      string = string[0,find.begin(0)]
+    end
+    print "__4__" + string
+    return string
   end
 end

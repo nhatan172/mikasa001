@@ -5,22 +5,27 @@ class Article < ApplicationRecord
   has_many :laws, class_name: 'Law', foreign_key: 'law_id'
   has_many :items, class_name: 'Item', foreign_key: 'law_id'
   has_many :points, class_name: 'Point', foreign_key: 'law_id'
+
+  has_many :relationshipmodifies, foreign_key: "law_id", class_name: "Index_modify_position"
+  has_many :modified_law, through: :relationships, source: :modified_law_id
+
+  has_many :reverse_relationshipmodifies, foreign_key: "modified_law_id",class_name: "Index_modify_position"
+  has_many :law_modify, through: :reverse_relationshipmodifies, source: :law_id
   
+
+
   self.per_page = 15
 
+  def isLawModify?
+    relationshipmodifies.present?
+  end
   searchkick batch_size: 200, merge_mappings: true,
     settings: {
       analysis: {
         analyzer: {
-          vnanalysis: {
-            tokenizer: "icu_tokenizer",
-            filter: [
-              "icu_folding",
-              "icu_normalizer"
-            ]
-          }
+          
         }
-      }
+      } 
     },
     mappings: {
       article: {
@@ -28,14 +33,12 @@ class Article < ApplicationRecord
           title: {
             type: "text",
             index: "true",
-            boost: 10,
-            analyzer: "vnanalysis"
-          },
+            boost: 10
+                      },
           content: {
             type: "text",
             index: "true",
-            boost: 10,
-            analyzer: "vnanalysis"
+            boost: 10
           },
           index_html: {
             type: "text",

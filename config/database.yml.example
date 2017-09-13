@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: VNLaw_development
+  database: VNLaw
 test:
   <<: *default
   database: VNLaw_test

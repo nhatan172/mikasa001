@@ -4,11 +4,11 @@ if [ ! -f ./config/secrets.yml ]; then
   echo -e "\nGenerating a secrets.yml file"
 
   # Random Keys
-  KEY_DEV=$(bin/rake secret)
-  KEY_TEST=$(bin/rake secret)
+  KEY_DEV=$(rake secret)
+  KEY_TEST=$(rake secret)
 
   # Generate the file
-  cat > ./config/secrets.yml <<EOL
+  cat > secrets.yml <<EOL
   development:  
     secret_key_base: ${KEY_DEV}
 
