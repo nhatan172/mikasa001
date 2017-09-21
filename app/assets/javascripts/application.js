@@ -24,6 +24,7 @@ $(document).on('ready page:load', function(){
 			event.preventDefault();
 
 			var hash = this.hash;
+			console.log(hash);
 
 			$('html, body').animate({
 				scrollTop: $(hash).offset().top
@@ -34,6 +35,23 @@ $(document).on('ready page:load', function(){
 		}
 	});
 
+	$( "div #mark_modifed" ).on( "click", function() {
+		var curr = $(this);
+	  curr.prev(".modified_info").css("display", "block");
+	});
+
+	$(".close_modified_info").click(function(){
+		var curr = $(this).parentsUntil(".modified_info").parent(".modified_info")
+		curr.css("display", "none");
+	});
+
+
+	$(".modified_info").on('click',function(event) {
+	        $(".modified_info").css("display", "none");
+	}).on('click','.modified_info_content',function(e){
+		e.stopPropagation();
+	});
+
 	$('a.back-to-top-btn').click(function() {
 		$('html, body').animate({
 			scrollTop: 0
@@ -42,6 +60,7 @@ $(document).on('ready page:load', function(){
 	});
 });
 
+	
 $(window).scroll(function() {
 	if ( $(window).scrollTop() > amountScrolled ) {
 		$('div.back-to-top').fadeIn('slow');

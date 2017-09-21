@@ -1,10 +1,5 @@
 class Article < ApplicationRecord
   has_many :parts, class_name: 'Part', foreign_key: 'law_id'
-  has_many :chapters, class_name: 'Chapter', foreign_key: 'law_id'
-  has_many :sections, class_name: 'Section', foreign_key: 'law_id'
-  has_many :laws, class_name: 'Law', foreign_key: 'law_id'
-  has_many :items, class_name: 'Item', foreign_key: 'law_id'
-  has_many :points, class_name: 'Point', foreign_key: 'law_id'
 
   has_many :relationshipmodifies, foreign_key: "law_id", class_name: "Index_modify_position"
   has_many :modified_law, through: :relationships, source: :modified_law_id
@@ -19,6 +14,11 @@ class Article < ApplicationRecord
   def isLawModify?
     relationshipmodifies.present?
   end
+
+  def isModifedLaw?
+    reverse_relationshipmodifies.present?
+  end
+
   searchkick batch_size: 200, merge_mappings: true,
     settings: {
       analysis: {
