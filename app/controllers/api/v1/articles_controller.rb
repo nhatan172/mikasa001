@@ -1,14 +1,24 @@
-class ArticlesController < ApplicationController
+class Api::V1::ArticlesController < ApplicationController
   before_action :get_article, only: [:show]
   before_action :render_index_html, only: [:show]
   def show
     count = @article.count_click + 1
     @article.update_attributes count_click: count
+    ####
+    render json: {
+      full_html: @article.full_html,
+      index_html: @article.index_html
+    }, status: :ok
+    ####
   end
 
   def index
-    @articles = Article.paginate page: params[:page]
+    #@articles = Article.paginate page: params[:page]
+    render json: {
+      articles: Article.search_article_newest.as_json(only: [:id, :title, :public_day, :effect_day, :effect_status])
+    }, status: :ok
   end
+
   private
 
   def get_article
