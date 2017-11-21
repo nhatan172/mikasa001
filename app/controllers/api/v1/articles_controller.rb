@@ -1,15 +1,21 @@
 class Api::V1::ArticlesController < ApplicationController
   before_action :get_article, only: [:show]
-  before_action :render_index_html, only: [:show]
+  # before_action :render_index_html, only: [:show]
   def show
-    count = @article.count_click + 1
-    @article.update_attributes count_click: count
-    ####
-    render json: {
-      full_html: @article.full_html,
-      index_html: @article.index_html
-    }, status: :ok
-    ####
+    if @article
+      # count = @article.count_click + 1
+      # @article.update_attributes count_click: count
+      #render_index_html
+      render json: {
+        full_html: @article.full_html,
+        index_html: @article.index_html,
+        detail: @article.as_json(only: [:title, :numerical_symbol, :public_day, :day_report, :article_type, :source, :agency_issued, 
+                                  :the_signer, :signer_title,:scope,:effect_day, :effect_status ])
+      }, status: :ok
+    else
+      render json: {
+        }, status: :not_found
+    end
   end
 
   def index
@@ -81,55 +87,55 @@ class Api::V1::ArticlesController < ApplicationController
         end
       end
       ########
-      if @article.isLawModify?
-        @modifies = @article.relationshipmodifies
-        browsed = []
-        @modifies.each do |a|
-          if browsed.include? a.position 
-            next
-          end
-          browsed.push(a.position)
-          title = firstStrip(get_title(@article,a.position))
-          modified_law_id = a.modified_law_id
-          html_insert = '<a target="_blank" title="Đi đến văn bản được sửa đổi" href="/articles/' + modified_law_id + '#'+sumary_to_position(a)+'" class="link_modify"><span class="glyphicon glyphicon-share-alt"></span></a>'
-          if title != nil
-            pattern = convert2regex(title)
-            find = /#{pattern}/m.match(@full_html)
-            if find != nil
-              @full_html = @full_html[0,find.end(0)] + html_insert + @full_html[find.end(0),@full_html.length]
-            end
-          end
-        end
-      end
+      # if @article.isLawModify?
+      #   @modifies = @article.relationshipmodifies
+      #   browsed = []
+      #   @modifies.each do |a|
+      #     if browsed.include? a.position 
+      #       next
+      #     end
+      #     browsed.push(a.position)
+      #     title = firstStrip(get_title(@article,a.position))
+      #     modified_law_id = a.modified_law_id
+      #     html_insert = '<a target="_blank" title="Đi đến văn bản được sửa đổi" href="/articles/' + modified_law_id + '#'+sumary_to_position(a)+'" class="link_modify"><span class="glyphicon glyphicon-share-alt"></span></a>'
+      #     if title != nil
+      #       pattern = convert2regex(title)
+      #       find = /#{pattern}/m.match(@full_html)
+      #       if find != nil
+      #         @full_html = @full_html[0,find.end(0)] + html_insert + @full_html[find.end(0),@full_html.length]
+      #       end
+      #     end
+      #   end
+      # end
       #######
-      if @article.isModifedLaw?
-        @reverse_relationshipmodifies = @article.reverse_relationshipmodifies
-        @reverse_relationshipmodifies.each do |a|
-          position = sumary_to_position(a)
-          law_modifies = Article.where(id: a.law_id)
-          law_modify = nil
-          for l in law_modifies
-            law_modify = l
-            break
-          end
-          pattern = '<a name="' + position + '"></a>'
-          find = /#{pattern}/.match(@full_html)
-          if find != nil
-            type = law_modify.article_type
-            title = law_modify.title
-            post = a.position
-            ll_id = law_modify.id
-            public_day = law_modify.public_day.to_formatted_s(:long)
-            content = get_title(law_modify,a.position).to_s
-            content = reform_html(content)
-            insert_html = '<div class="modifed_outer"> <div class="modified_info"><div class="modified_info_content"><span class="close_modified_info">&times;</span><p>Được sửa đổi, bổ sung tại <a target="_blank" href="/articles/'
-            insert_html += ll_id +'#'+ post + '">' + type  + ' ' + title + '</a></p><p>Ban hành ngày: '
-            insert_html +=  public_day +'</p><p>Nội dung sửa đổi: </p><p class = "content_modified"> '+ content +'</p></div></div>'
-            insert_html += '<span class="glyphicon glyphicon-tags" id="mark_modifed"></span></div>'
-            @full_html = @full_html[0,find.begin(0)] + insert_html + @full_html[find.begin(0),@full_html.length]
-          end
-        end
-      end
+      # if @article.isModifedLaw?
+      #   @reverse_relationshipmodifies = @article.reverse_relationshipmodifies
+      #   @reverse_relationshipmodifies.each do |a|
+      #     position = sumary_to_position(a)
+      #     law_modifies = Article.where(id: a.law_id)
+      #     law_modify = nil
+      #     for l in law_modifies
+      #       law_modify = l
+      #       break
+      #     end
+      #     pattern = '<a name="' + position + '"></a>'
+      #     find = /#{pattern}/.match(@full_html)
+      #     if find != nil
+      #       type = law_modify.article_type
+      #       title = law_modify.title
+      #       post = a.position
+      #       ll_id = law_modify.id
+      #       public_day = law_modify.public_day.to_formatted_s(:long)
+      #       content = get_title(law_modify,a.position).to_s
+      #       content = reform_html(content)
+      #       insert_html = '<div class="modifed_outer"> <div class="modified_info"><div class="modified_info_content"><span class="close_modified_info">&times;</span><p>Được sửa đổi, bổ sung tại <a target="_blank" href="/articles/'
+      #       insert_html += ll_id +'#'+ post + '">' + type  + ' ' + title + '</a></p><p>Ban hành ngày: '
+      #       insert_html +=  public_day +'</p><p>Nội dung sửa đổi: </p><p class = "content_modified"> '+ content +'</p></div></div>'
+      #       insert_html += '<span class="glyphicon glyphicon-tags" id="mark_modifed"></span></div>'
+      #       @full_html = @full_html[0,find.begin(0)] + insert_html + @full_html[find.begin(0),@full_html.length]
+      #     end
+      #   end
+      # end
       #######
       @article.update_attributes(index_html: @index_html)
       @article.update_attributes(full_html: @full_html)

@@ -3,9 +3,31 @@ class Api::V1::SearchesController < ApplicationController
 
   def index
     # render "articles/index"
-    render json: {
-      articles: @articles.as_json(only: [:id, :title, :public_day, :effect_day, :effect_status])
-    }, status: :ok
+    page_number = 0
+    articlesCount = @articles.count
+    limit_page = (articlesCount)%6 == 0 ? (articlesCount/6) : (articlesCount/6 + 1) 
+    if params[:page]
+      if params[:page] >  limit_page
+        current_page = limit_page
+      elsif params[:page] < 1
+        current_page = 1
+      else
+        current_page = params[:page]
+      end
+    else
+      current_page = 1
+    end
+    if @articles
+      render json: {
+        current_page: page_number,
+        limit_page: limit_page,
+        articles: @articles[(current_page-1)*6,6].as_json(only: [:id, :title, :public_day, :effect_day, :effect_status])
+      }, status: :ok
+    else 
+      render json: {
+        articles: null,
+      }, status: :ok
+    end
   end
 
   private
