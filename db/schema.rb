@@ -10,27 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808154601) do
+ActiveRecord::Schema.define(version: 20171211084611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", id: false, force: :cascade do |t|
-    t.text "id"
+  create_table "articles", id: :text, force: :cascade do |t|
     t.text "title"
     t.text "content"
     t.text "full_html"
     t.text "index_html"
     t.text "numerical_symbol"
     t.date "public_day"
-    t.date "day_report"
+    t.text "day_report"
     t.text "article_type"
     t.text "source"
     t.text "agency_issued"
     t.text "the_signer"
     t.text "signer_title"
     t.text "scope"
-    t.date "effect_day"
+    t.text "effect_day"
     t.text "effect_status"
     t.integer "count_click"
     t.date "created_at"
@@ -61,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.text "from_text"
     t.text "to_text"
     t.text "numerical_symbol"
+    t.text "released_date"
   end
 
   create_table "header_doc", id: false, force: :cascade do |t|
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
   create_table "law_has_modification", id: false, force: :cascade do |t|
     t.text "doc_id"
     t.text "modyfied_doc_id"
+    t.text "modyfied_doc_released_date"
   end
 
   create_table "laws", id: false, force: :cascade do |t|
@@ -141,6 +142,15 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.integer "part_start"
     t.integer "part_end"
     t.text "name_part"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "uid"
+    t.string "refcode"
+    t.boolean "done"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "points", id: false, force: :cascade do |t|
@@ -175,6 +185,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.text "doc_content_update"
     t.text "numerical_symbol"
     t.text "position"
+    t.text "modified_law_date_release"
   end
 
   create_table "type_modify_law_0", id: false, force: :cascade do |t|
@@ -183,6 +194,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.text "doc_content_update"
     t.text "numerical_symbol"
     t.text "position"
+    t.text "modified_law_date_release"
   end
 
   create_table "type_modify_law_1", id: false, force: :cascade do |t|
@@ -191,6 +203,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.text "doc_content_update"
     t.text "numerical_symbol"
     t.text "position"
+    t.text "modified_law_date_release"
   end
 
   create_table "type_modify_law_2", id: false, force: :cascade do |t|
@@ -199,6 +212,7 @@ ActiveRecord::Schema.define(version: 20170808154601) do
     t.text "doc_content_update"
     t.text "numerical_symbol"
     t.text "position"
+    t.text "modified_law_date_release"
   end
 
 end

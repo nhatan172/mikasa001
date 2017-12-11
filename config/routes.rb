@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 	      # We are going to list our resources here
 			get "/searches", to: "searches#index"
 			get "/payments", to: "payments#index"
+			get "/checkpayment", to: "checkpayment#index"
 			resources :articles, only: [:show, :index]
 			resources :news, only: [:show, :index]
 	  	end
